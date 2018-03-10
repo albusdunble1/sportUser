@@ -17,11 +17,12 @@ import { CommonProvider } from '../providers/common/common';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = SigninPage;
+  
 
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,private common: CommonProvider ,private afAuth: AngularFireAuth) {
+    this.initializeApp();
     this.afAuth.authState.subscribe(
       (user) => {
       if(user){
@@ -34,7 +35,7 @@ export class MyApp {
       }
     )
     
-    this.initializeApp();
+    
 
     // used for an example of ngFor and navigation
     this.pages = [
