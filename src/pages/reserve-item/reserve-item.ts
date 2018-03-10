@@ -136,9 +136,13 @@ export class ReserveItemPage implements OnInit{
     if(event === 'badminton'){
       this.isBadminton=true;
       this.isSquash=false;
-    }else{
+    }else if(event ==='squash'){
       this.isBadminton=false;
       this.isSquash=true;
+    }
+    else{
+      this.isBadminton=false;
+      this.isSquash=false;
     }
   }
 
