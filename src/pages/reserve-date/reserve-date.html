@@ -1,0 +1,52 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title>Reservation Date</ion-title>
+    
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="backgroundContent" fullscreen="true">
+    
+  
+
+  <p class="title">Pick the date of reservation</p>
+ <ion-list>
+    <ion-item class="itemPadding">
+      <ion-label item-left>
+          <ion-icon name="calendar" class="dateIcon"></ion-icon>
+          Date:
+      </ion-label>
+      
+      <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="myDate" class="date" ion-content></ion-datetime>
+  </ion-item>
+ </ion-list>
+ 
+
+<p class="title">Pick the time of reservation</p>
+<form [formGroup]="timeForm" (ngSubmit)="onSubmit()">
+  <ion-list>
+    <ion-item>
+      <ion-label> <ion-icon name="time" item-left></ion-icon>From:</ion-label>
+    <ion-select formControlName="time" class="categorySelect">
+      <ion-option *ngFor="let times of reservationTimes" [value]="times" >{{ times }}</ion-option>
+    </ion-select>
+    </ion-item>
+  </ion-list>
+    
+  </form>
+
+  
+</ion-content>
+
+<ion-footer no-shadow padding no-border>
+  <form [formGroup]="timeForm" (ngSubmit)="onSubmit()">
+  <button ion-button block color="primary" type="submit">Proceed</button>
+</form>
+</ion-footer>

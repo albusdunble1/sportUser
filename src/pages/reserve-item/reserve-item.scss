@@ -1,0 +1,46 @@
+page-reserve-item {
+    .categorySelect{
+        max-width: 100% !important;
+    }
+
+    .mainStage{
+        font-weight: bold;
+        border: 1px solid black;
+        padding: 0px;
+       
+    }
+
+    .squash{
+        padding:0px;
+        margin-left:80px;
+    }
+
+    .row{
+        padding-bottom:0px;
+        padding-top:0px;
+    }
+
+    .lowOpacity{
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+       
+    }
+
+    .selectedCourt{
+         border: 2px solid blue;
+    }
+
+    .scol{
+        margin:0px;
+        opacity:1;
+    }
+
+    .floatingDiv{
+        padding:80px;
+        padding-left:0px;
+        padding-right:0px;
+        
+    }
+
+    
+}

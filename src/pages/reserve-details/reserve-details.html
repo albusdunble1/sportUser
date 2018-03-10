@@ -1,0 +1,32 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Reservation Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="backgroundContent">
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title> Reservation Details</ion-card-title>
+      <hr>
+      <h2>Category:   {{ alternativeCourtType }}</h2>
+      <br>
+      <h2>Item Name: {{ courtName }}</h2>
+      <img src="../../assets/imgs/court.jpg" alt="court" class="img" *ngIf="badmintonChosen">
+      <img src="../../assets/imgs/squash1.png" alt="court" class="imgSquash" *ngIf="squashChosen">
+      <br>
+      <h2>Date: {{ dateTime.date }}</h2>
+      <h2>Time: {{ dateTime.time }}</h2>
+      <h2>Fees: RM {{ fee }}</h2>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer no-shadow padding no-border>
+    <button ion-button block color="primary" (click)="onReserve()">Reserve Now</button>
+  </ion-footer>

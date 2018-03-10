@@ -1,0 +1,50 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Choose Item</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="backgroundContent">
+      <ion-item>
+          <ion-label>Category</ion-label>
+          <ion-select [(ngModel)]="courtType" class="categorySelect" (ionChange)="onChange($event)">
+              <ion-option value="" selected>Please select</ion-option>            
+            <ion-option value="badminton">Badminton Court</ion-option>
+            <ion-option value="squash">Squash Court</ion-option>
+          </ion-select>
+        </ion-item>
+
+  <ion-card>
+    <ion-card-content>
+   
+      <ion-grid *ngIf="isBadminton">
+          <br>
+          <h2 text-center class="mainStage">Main Stage</h2>
+        <ion-row>
+          <ion-col col-6 *ngFor="let badminton of badminton2Sync"><img id="badminton" src="../../assets/imgs/court.jpg" alt="court" (click)="onSelectCourt(badminton.name,badminton.isBooked)" [ngClass]="{'lowOpacity' : badminton.isBooked, 'selectedCourt' : badmintonRecentStatus && courtName === badminton.name}"></ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid text-center *ngIf="isSquash">
+          <ion-row class="row" *ngFor="let squash of squash2Sync">
+            <ion-col class="scol" col-6><img  id="squash" src="../../assets/imgs/squash1.png" alt="court" class="squash" (click)="onSelectCourt(squash.name,squash.isBooked)" [ngClass]="{'lowOpacity' : squash.isBooked,'selectedCourt' : squashRecentStatus && courtName === squash.name}"></ion-col>
+            
+          </ion-row>
+      </ion-grid>
+
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>
+
+
+
+<ion-footer no-shadow padding no-border>
+      <button ion-button block color="primary" (click)="onSelect()" [disabled]="squashRecentStatus === false && badmintonRecentStatus === false">Proceed</button>
+
+  </ion-footer>

@@ -1,0 +1,38 @@
+
+<ion-header>
+
+  <!-- <ion-navbar>
+    <ion-title>signin</ion-title>
+  </ion-navbar> -->
+
+</ion-header>
+
+
+<ion-content padding class="signIn">
+    <img src="../../assets/imgs/umplogo.png" alt="ump" class="img">
+    <h2 text-center class="white">SPORTS CENTER</h2>
+    <h2 text-center class="white">RESERVATION</h2>
+
+    <form #f="ngForm" (ngSubmit)="onSignIn(f)">
+      
+        <ion-item class="transparent">
+                   
+          <ion-label fixed>
+            <ion-icon name="person" item-left></ion-icon>   
+            Matrics
+          </ion-label>
+          <ion-input type="text" name="matrics" ngModel class="input"></ion-input>
+        </ion-item>
+        <ion-item class="transparent">
+            <ion-label fixed>
+              <ion-icon name="unlock" item-left></ion-icon>
+              Password
+            </ion-label>
+            <ion-input type="password" name="password" ngModel class="input"></ion-input>
+          </ion-item>
+          <br><br><br>
+    <button ion-button block color="primary" type="submit">Sign In</button>      
+    </form>
+    
+
+</ion-content>

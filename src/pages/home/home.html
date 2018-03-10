@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title style="display:inline-block" class="titleicon">Sports Center Reservation</ion-title>
+    <img alt="logo" height="40"   src="../assets/imgs/umplogo.png" class="titleimg">
+  </ion-navbar>
+</ion-header>
+
+<ion-content  class="card-background-page" fullscreen="true"> 
+  <ion-card>
+    <img src="../assets/imgs/komplekssukan.jpg"/>
+    <div class="card-title">Welcome</div>
+    <div class="card-subtitle">{{ matricsNo  | uppercase}}</div>
+  </ion-card>
+
+  <br>
+
+  <!-- <ion-card>
+    <ion-card-header class="cardHeader" text-left>
+      Announcements
+    </ion-card-header>
+    
+    <ion-card-content>
+      <ion-scroll  scrollY="true" style="height: 200px" class="scroll">
+        <ion-list>
+          <ion-item *ngFor="let announcement of announcements"> {{ announcement }}</ion-item>
+        </ion-list>
+      </ion-scroll>
+    </ion-card-content>
+  </ion-card> -->
+
+  <!-- <ion-list>
+      <ion-item class="text" *ngFor="let item of items | async">
+         {{ item.key }} {{item.description}}
+      </ion-item>
+    </ion-list> -->
+
+    <ion-list padding> 
+        <ion-item-group>
+          <ion-item-divider color="secondary"><h2 style="color: white;"><strong>Announcements</strong></h2></ion-item-divider>
+          <ion-item *ngFor="let thing of itemArray" >
+              <strong [ngStyle]="{'color': '#2b8c85'}">{{ thing.description }}</strong> 
+            </ion-item>
+        </ion-item-group>
+    </ion-list>
+
+    
+
+    <!-- <button ion-button (click)="onSignUp()">Sign Up</button>
+    <button ion-button (click)="onAdd()">Add</button>
+    <button ion-button (click)="onSmall()">Small only</button>
+    <button ion-button (click)="onLarge()">Large only</button>
+    <button ion-button (click)="onMedium()">Medium only</button>
+    <button ion-button (click)="onCheckAllItems()">Check all items</button> -->
+</ion-content>

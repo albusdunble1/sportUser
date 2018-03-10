@@ -1,0 +1,8 @@
+{
+  "name": "sportSystem",
+  "app_id": "27820112",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
