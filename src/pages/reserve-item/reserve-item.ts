@@ -151,19 +151,23 @@ export class ReserveItemPage implements OnInit{
     this.courtName=courtName;
     
     if(bookedStatus==true){
+      this.badmintonRecentStatus= false;
+      this.squashRecentStatus= false;
 
+      console.log('badminton: ',this.badmintonRecentStatus);
+        console.log('squash:',this.squashRecentStatus);
     }else{
       console.log(this.courtName);
       console.log(this.courtType);
       if(this.courtType=== 'badminton'){
-        this.badmintonRecentStatus= !this.badmintonRecentStatus;
+        this.badmintonRecentStatus= true;
         if(this.squashRecentStatus == true){
           this.squashRecentStatus= false;
         }
         console.log('badminton: ',this.badmintonRecentStatus);
         console.log('squash:',this.squashRecentStatus);
       }else{
-        this.squashRecentStatus= !this.squashRecentStatus;
+        this.squashRecentStatus= true;
         if(this.badmintonRecentStatus == true){
           this.badmintonRecentStatus= false;
         }

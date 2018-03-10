@@ -15,20 +15,21 @@ import { Subject } from 'rxjs/Subject';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage implements OnChanges{
+export class HomePage{
   items: Observable<any[]>;
   items1$;
   size$= new Subject<string>();  // naming convention for subject/observables size -->($)<---
   items2;
   allItems=[];
   itemArray=[];
-
+  loading;
   userId;
   user;
   matricsNo;
 
-  ngOnChanges(){
-    this.cdRef.detectChanges();
+  ionViewDidLoad(){
+    this.loading=this.common.loadingSpinner('Loading');
+    this.loading.present();
   }
   
 
@@ -38,7 +39,6 @@ export class HomePage implements OnChanges{
 
   
   
-  announcements= [' Something Important',' Something Important',' Something Important',' Something Important',' Something Important']
   
   constructor(private cdRef: ChangeDetectorRef,private common: CommonProvider,public navCtrl: NavController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth) {
   // path for announcement
@@ -135,7 +135,7 @@ export class HomePage implements OnChanges{
 
 
     //returning and extracting the key and values ( ... ) returns all the values of the key
-    this.items = afDB.list(path).snapshotChanges()
+    this.items = afDB.list(path, ref => ref.limitToLast(10)).snapshotChanges()
     .map(
       (changes) => {
         return changes.map(
@@ -151,6 +151,7 @@ export class HomePage implements OnChanges{
     this.items.subscribe(
       (data) => {
         this.itemArray = data;
+        this.loading.dismiss();
       }
     )
     

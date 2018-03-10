@@ -40,8 +40,8 @@
     <ion-list padding> 
         <ion-item-group>
           <ion-item-divider color="secondary"><h2 style="color: white;"><strong>Announcements</strong></h2></ion-item-divider>
-          <ion-item *ngFor="let thing of itemArray" >
-              <strong [ngStyle]="{'color': '#2b8c85'}">{{ thing.description }}</strong> 
+          <ion-item *ngFor="let thing of itemArray.reverse()" >
+              <ion-badge item-left>{{ thing.date }}</ion-badge>{{ thing.title }}
             </ion-item>
         </ion-item-group>
     </ion-list>

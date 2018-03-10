@@ -19,10 +19,7 @@ export class CommonProvider {
     console.log('Hello CommonProvider Provider');
   }
 
-  login(){
-    
-    
-  }
+
 
   setUser(uid: string, userEmail: string){
     this.userId= uid;
@@ -37,7 +34,7 @@ export class CommonProvider {
     return this.userEmail;
   }
 
-  loadingFeature(msg: string){
+  loadingSpinner(msg: string){
     return this.loading=this.loadingCtrl.create({
       content: msg
     })
