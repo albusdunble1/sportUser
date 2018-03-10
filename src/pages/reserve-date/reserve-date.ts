@@ -7,6 +7,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ReserveItemPage } from '../reserve-item/reserve-item';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import moment from 'moment';
 
 
 
@@ -39,11 +40,17 @@ export class ReserveDatePage implements OnInit{
 
   userId: string;
   matricsNo: string;
+  minDate: string = new Date().toISOString();
+  dateMax = moment();
+  maxDate:string;
+  
  
 
   reservationTimes =["1pm-2pm", "2pm-3pm", "3pm-4pm", "4pm-5pm", "5pm-6pm"];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afDB: AngularFireDatabase, private common: CommonProvider) {
+    this.dateMax.add(1, 'months'); // get max date that user can book
+    this.maxDate= this.dateMax.toDate().toISOString();
 
     this.userId= this.common.getUser();
     this.matricsNo= this.common.getUserEmail().substring(0,7);

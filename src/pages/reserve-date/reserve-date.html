@@ -24,7 +24,7 @@
           Date:
       </ion-label>
       
-      <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="myDate" class="date" ion-content></ion-datetime>
+      <ion-datetime displayFormat="MM/DD/YYYY" [min]="minDate" [max]="maxDate" [(ngModel)]="myDate" class="date" ion-content></ion-datetime>
   </ion-item>
  </ion-list>
  

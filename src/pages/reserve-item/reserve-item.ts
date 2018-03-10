@@ -38,6 +38,7 @@ export class ReserveItemPage implements OnInit{
   fee: number;
   badmintonRecentStatus=false;
   squashRecentStatus=false;
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afDB: AngularFireDatabase) {
     this.dateTime= this.navParams.get('dateTime');
