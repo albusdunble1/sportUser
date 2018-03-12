@@ -2,7 +2,7 @@ import { CommonProvider } from './../../providers/common/common';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { DateTime } from './../../app/models/datetime.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ReserveItemPage } from '../reserve-item/reserve-item';
 import { Subject } from 'rxjs/Subject';
@@ -16,7 +16,7 @@ import moment from 'moment';
   selector: 'page-reserve-date',
   templateUrl: 'reserve-date.html',
 })
-export class ReserveDatePage implements OnInit{
+export class ReserveDatePage implements OnInit, OnDestroy{
   timeForm: FormGroup;
   myDate= new Date().toString();
   reservation$;
@@ -35,7 +35,7 @@ export class ReserveDatePage implements OnInit{
   reservationAfterChecking; // observable holding the data for reservation list
   reservationQueryRef$; // querying the reservation with the exact date and time 
   reservationQuery;
-  querySubscription: Subscription;
+ 
   categoryKey: string;
 
   userId: string;
@@ -44,7 +44,11 @@ export class ReserveDatePage implements OnInit{
   dateMax = moment();
   maxDate:string;
   
- 
+
+  categorySub: Subscription;
+  reservationSub: Subscription;
+  querySubscription: Subscription;
+  reservationTimeSub:  Subscription;
 
   reservationTimes =["1pm-2pm", "2pm-3pm", "3pm-4pm", "4pm-5pm", "5pm-6pm"];
 
@@ -70,7 +74,7 @@ export class ReserveDatePage implements OnInit{
     );
 
     //extracting all the data from the observable and putting it in local array to be used
-       this.category$.subscribe(
+       this.categorySub=this.category$.subscribe(
         (data) => {
           // this.itemArray = data;
           this.categoryArray=data;
@@ -79,7 +83,7 @@ export class ReserveDatePage implements OnInit{
 
 
     //returning and extracting the key and values ( ... ) returns all the values of the key
-    this.reservation$ = afDB.list("reservation").snapshotChanges()
+    this.reservation$ = afDB.list("/reservation").snapshotChanges()
     .map(
       (changes) => {
         return changes.map(
@@ -92,7 +96,7 @@ export class ReserveDatePage implements OnInit{
     );
 
     //extracting all the data from the observable and putting it in local array to be used
-    this.reservation$.subscribe(
+    this.reservationSub=this.reservation$.subscribe(
       (data) => {
         // this.itemArray = data;
         this.reservationArray=data;
@@ -142,7 +146,7 @@ export class ReserveDatePage implements OnInit{
       }
     )
         // passing the reservation data fetched to a local array
-          this.reservationAfterChecking.subscribe( // causing an infinite loop out of nowhere
+    this.reservationTimeSub=this.reservationAfterChecking.subscribe( // causing an infinite loop out of nowhere
             (data) => {
               this.RCArray= data;
               console.log(this.RCArray);
@@ -236,9 +240,15 @@ export class ReserveDatePage implements OnInit{
     // )
     console.log(this.dateTime);
 
-    
+  }
 
-    
+  ngOnDestroy(){
+   
+  }
 
+  ionViewDidLeave(){
+    this.categorySub.unsubscribe();
+    this.reservationSub.unsubscribe();
+    
   }
 }

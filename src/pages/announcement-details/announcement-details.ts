@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
-/**
- * Generated class for the AnnouncementDetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -15,11 +10,23 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AnnouncementDetailsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  announcementDate:string;
+  announcementTitle: string;
+  announcementDescription: string;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AnnouncementDetailsPage');
+    this.announcementDate= this.navParams.get('date');
+    this.announcementDescription= this.navParams.get('description');
+    this.announcementTitle= this.navParams.get('title');
   }
+
+  onClose(remove =false){
+    this.viewCtrl.dismiss(remove);
+  }
+
+
 
 }

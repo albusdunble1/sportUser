@@ -2,9 +2,10 @@ import { Reservation } from './../../app/models/reservation.model';
 import { DateTime } from './../../app/models/datetime.interface';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { PaymentPage } from './../payment/payment';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CommonProvider } from '../../providers/common/common';
+import { Subscription } from 'rxjs/Subscription';
 
 
 
@@ -13,7 +14,7 @@ import { CommonProvider } from '../../providers/common/common';
   selector: 'page-reserve-details',
   templateUrl: 'reserve-details.html',
 })
-export class ReserveDetailsPage {
+export class ReserveDetailsPage implements OnDestroy{
 
   courtName:string;
   courtType: string;
@@ -32,6 +33,8 @@ export class ReserveDetailsPage {
 
   userId: string;
   matricsNo:string;
+
+  reservationSub :Subscription;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afDB: AngularFireDatabase, private common: CommonProvider) {
     this.userId= this.common.getUser();
@@ -69,7 +72,7 @@ export class ReserveDetailsPage {
       }
     )
 
-    this.reservationObservable.subscribe(
+    this.reservationSub=this.reservationObservable.subscribe(
       (reservationStuff) =>{
         console.log(reservationStuff);
       }
@@ -110,6 +113,10 @@ export class ReserveDetailsPage {
     const reservationRefForPush$= this.afDB.list('reservation');
     reservationRefForPush$.push(this.reservationFinal);
 
+  }
+
+  ngOnDestroy(){
+    this.reservationSub.unsubscribe();
   }
 
 }

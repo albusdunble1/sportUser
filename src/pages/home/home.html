@@ -40,7 +40,7 @@
     <ion-list padding> 
         <ion-item-group>
           <ion-item-divider color="secondary"><h2 style="color: white;"><strong>Announcements</strong></h2></ion-item-divider>
-          <ion-item *ngFor="let thing of itemArray.reverse()" >
+          <ion-item *ngFor="let thing of itemArray.reverse()" (click)="onAnnouncement(thing)">
               <ion-badge item-left>{{ thing.date }}</ion-badge>{{ thing.title }}
             </ion-item>
         </ion-item-group>

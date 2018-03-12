@@ -1,12 +1,13 @@
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Reservation } from './../../app/models/reservation.model';
 import { Observable } from 'rxjs/Observable';
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ReserveDetailsPage } from '../reserve-details/reserve-details';
 import { Subject } from 'rxjs/Subject';
 import { DateTime } from '../../app/models/datetime.interface';
+import { Subscription } from 'rxjs/Subscription';
 
 
 @IonicPage()
@@ -14,7 +15,7 @@ import { DateTime } from '../../app/models/datetime.interface';
   selector: 'page-reserve-item',
   templateUrl: 'reserve-item.html',
 })
-export class ReserveItemPage implements OnInit{
+export class ReserveItemPage implements OnDestroy{
 
   courtType: string;
   categoryForm: FormGroup;
@@ -38,6 +39,10 @@ export class ReserveItemPage implements OnInit{
   fee: number;
   badmintonRecentStatus=false;
   squashRecentStatus=false;
+
+  reservationTimeSub: Subscription;
+  badmintonSub: Subscription;
+  squashSub: Subscription;
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afDB: AngularFireDatabase) {
@@ -68,7 +73,7 @@ export class ReserveItemPage implements OnInit{
           //   }
           // )
 
-          this.reservationAfterChecking.subscribe(
+    this.reservationTimeSub=this.reservationAfterChecking.subscribe(
             (data) => {
               this.RCArray= data;
               console.log(this.RCArray);
@@ -81,7 +86,7 @@ export class ReserveItemPage implements OnInit{
                   this.badmintonRef$=this.afDB.list('/reservationTimes/'+ this.dateTime.time + '/'+ this.dateTime.date+'/'+ this.categoryKey+ '/category/0/courts');
                   this.badmintonObservable= this.badmintonRef$.valueChanges();
 
-                  this.badmintonObservable.subscribe(
+                  this.badmintonSub=this.badmintonObservable.subscribe(
                     (badmintonStuff) => {
                       
                       this.badminton2Sync= badmintonStuff;
@@ -92,7 +97,7 @@ export class ReserveItemPage implements OnInit{
                   this.squashRef$=this.afDB.list('/reservationTimes/'+ this.dateTime.time + '/'+ this.dateTime.date+'/'+ this.categoryKey+ '/category/1/courts');
                   this.squashObservable= this.squashRef$.valueChanges();
                   
-                  this.squashObservable.subscribe(
+                  this.squashSub=this.squashObservable.subscribe(
                     (squashStuff) => {
                       this.squash2Sync= squashStuff;
                     }
@@ -106,16 +111,6 @@ export class ReserveItemPage implements OnInit{
 
  
   }
-
-    
-  
-  ngOnInit(){
- 
-    
-   
-  }
-  
-
 
 
   onSelect(){
@@ -183,4 +178,9 @@ export class ReserveItemPage implements OnInit{
 
   // this.badmintonStatusUpdateRef$=this.afDB.list('/reservationTimes/'+ this.dateTime.time + '/'+ this.dateTime.date+'/'+ this.categoryKey+ '/category/0/courts');
 
+  ngOnDestroy(){
+    this.badmintonSub.unsubscribe();
+    this.squashSub.unsubscribe();
+    this.reservationTimeSub.unsubscribe();
+  }
 }

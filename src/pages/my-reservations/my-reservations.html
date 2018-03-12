@@ -1,0 +1,53 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title>My Reservations</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding fullscreen="true">
+    <ion-item no-padding no-lines>
+        <ion-label>Show Paid</ion-label>
+        <ion-checkbox color="primary" [(ngModel)]="checked"></ion-checkbox>
+      </ion-item>
+
+  <div *ngIf="checked">
+    <ion-card *ngFor="let reservation of reservationsArray.reverse()">
+    <ion-card-content>
+      <h3><strong>Category: {{ reservation.category === 'badminton'? 'Badminton Court': 'Squash Court'}}</strong></h3>
+      <hr>
+      <p>Name: {{ reservation.item }}</p>
+      <p>Date and Time: {{ reservation.date }}, {{ reservation.time }} </p>
+      <p>Fees: RM {{ reservation.fee }}</p>
+
+      <ion-badge *ngIf="reservation.approvedStatus">Approved</ion-badge>
+    <ion-badge color="danger" *ngIf="!reservation.approvedStatus">Not Approved</ion-badge>
+    <ion-badge *ngIf="reservation.paidStatus" >Paid</ion-badge>
+    <ion-badge *ngIf="!reservation.paidStatus" color="danger">Not Paid</ion-badge>
+    </ion-card-content>
+  </ion-card>
+  </div>
+
+  <div *ngIf="!checked">
+      <ion-card *ngFor="let reservation of paidArray.reverse()">
+          <ion-card-content>
+            <h3><strong>Category: {{ reservation.category === 'badminton'? 'Badminton Court': 'Squash Court'}}</strong></h3>
+            <hr>
+            <p>Name: {{ reservation.item }}</p>
+            <p>Date and Time: {{ reservation.date }}, {{ reservation.time }} </p>
+            <p>Fees: RM {{ reservation.fee }}</p>
+      
+            <ion-badge *ngIf="reservation.approvedStatus">Approved</ion-badge>
+          <ion-badge color="danger" *ngIf="!reservation.approvedStatus">Not Approved</ion-badge>
+          <ion-badge *ngIf="reservation.paidStatus" >Paid</ion-badge>
+          <ion-badge *ngIf="!reservation.paidStatus" color="danger">Not Paid</ion-badge>
+          </ion-card-content>
+        </ion-card>
+  </div>
+  
+</ion-content>

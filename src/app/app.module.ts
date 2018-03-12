@@ -1,3 +1,5 @@
+import { MyReservationsPage } from './../pages/my-reservations/my-reservations';
+import { AnnouncementDetailsPage } from './../pages/announcement-details/announcement-details';
 import { SigninPage } from './../pages/signin/signin';
 import { PaymentPage } from './../pages/payment/payment';
 import { ReserveDetailsPage } from './../pages/reserve-details/reserve-details';
@@ -35,7 +37,9 @@ export const firebaseConfig = {
     ReserveItemPage,
     ReserveDetailsPage,
     PaymentPage,
-    SigninPage
+    SigninPage,
+    AnnouncementDetailsPage,
+    MyReservationsPage
 
   ],
   imports: [
@@ -53,7 +57,9 @@ export const firebaseConfig = {
     ReserveItemPage,
     ReserveDetailsPage,
     PaymentPage,
-    SigninPage
+    SigninPage,
+    AnnouncementDetailsPage,
+    MyReservationsPage
 
   ],
   providers: [

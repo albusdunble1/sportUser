@@ -1,10 +1,12 @@
+import { AnnouncementDetailsPage } from './../announcement-details/announcement-details';
 import { CommonProvider } from './../../providers/common/common';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Component, OnChanges, ChangeDetectorRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, OnChanges, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { NavController, ModalController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
 
 
@@ -15,7 +17,7 @@ import { Subject } from 'rxjs/Subject';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage{
+export class HomePage implements OnDestroy{
   items: Observable<any[]>;
   items1$;
   size$= new Subject<string>();  // naming convention for subject/observables size -->($)<---
@@ -26,6 +28,8 @@ export class HomePage{
   userId;
   user;
   matricsNo;
+
+  announSub: Subscription;
 
   ionViewDidLoad(){
     this.loading=this.common.loadingSpinner('Loading');
@@ -40,7 +44,7 @@ export class HomePage{
   
   
   
-  constructor(private cdRef: ChangeDetectorRef,private common: CommonProvider,public navCtrl: NavController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth) {
+  constructor(private modalCtrl: ModalController,private cdRef: ChangeDetectorRef,private common: CommonProvider,public navCtrl: NavController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth) {
   // path for announcement
   let path = "announcements";
 
@@ -148,7 +152,7 @@ export class HomePage{
     );
 
     //extracting all the data from the observable and putting it in local array to be used
-    this.items.subscribe(
+    this.announSub=this.items.subscribe(
       (data) => {
         this.itemArray = data;
         this.loading.dismiss();
@@ -156,16 +160,21 @@ export class HomePage{
     )
     
   }
+
+  onAnnouncement(announcement :string){
+    const modal= this.modalCtrl.create(AnnouncementDetailsPage, announcement);
+    modal.present();
+    }
   
 
-   onSignUp(email: string= "cc16165", password: string= "123123123"){
-    this.afAuth.auth.createUserWithEmailAndPassword(email+'@test.com',password)
-    .then(
-      (res) => {
-        console.log(res);
-      }
-    );
-  }
+  //  onSignUp(email: string= "cc16165", password: string= "123123123"){
+  //   this.afAuth.auth.createUserWithEmailAndPassword(email+'@test.com',password)
+  //   .then(
+  //     (res) => {
+  //       console.log(res);
+  //     }
+  //   );
+  // }
 
 
  
@@ -202,23 +211,29 @@ export class HomePage{
 
   // 1.3 querying the database and retreiving wanted data only
 
-  onSmall(){
-    this.size$.next('small');
-  }
+  // onSmall(){
+  //   this.size$.next('small');
+  // }
   
 
-  onLarge(){
-    this.size$.next('large');
+  // onLarge(){
+  //   this.size$.next('large');
 
-  }
+  // }
 
-  onMedium(){
+  // onMedium(){
 
-    this.size$.next('medium');
-  }
+  //   this.size$.next('medium');
+  // }
 
-  onCheckAllItems(){
-    console.log(this.allItems);
-    console.log(this.items);
+  // onCheckAllItems(){
+  //   console.log(this.allItems);
+  //   console.log(this.items);
+  // }
+
+  ngOnDestroy(){
+    this.announSub.unsubscribe();
   }
 }
+
+

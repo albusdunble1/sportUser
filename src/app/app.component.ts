@@ -1,3 +1,4 @@
+import { MyReservationsPage } from './../pages/my-reservations/my-reservations';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ReserveDatePage } from './../pages/reserve-date/reserve-date';
 import { Component, ViewChild } from '@angular/core';
@@ -40,7 +41,8 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'Reserve Item', component: ReserveDatePage }
+      { title: 'Reserve Item', component: ReserveDatePage },
+      { title: 'My Reservations', component: MyReservationsPage }
       
 
     ];
