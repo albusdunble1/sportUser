@@ -2,7 +2,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Payment Details</ion-title>
+    <ion-title>Successful</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -10,22 +10,24 @@
 
 <ion-content class="backgroundContent">
 
-    <ion-card>
-      <ion-card-content>
-        <ion-card-title> Payment Details</ion-card-title>
-        <hr>
-        
-        <img src="assets/imgs/paymentFail2.png" alt="payment" class="img">
-        <h2 text-center class="h2">Oops, looks like you have not completed the payment!</h2>
-        
-      </ion-card-content>
+   <div class="successful">
+     <ion-icon name="checkmark-circle"></ion-icon>
+     <p>Reservation Submitted</p>
+   </div>
 
-      
-      <h1 text-center class="status">
-        <ion-icon name="close-circle"></ion-icon>
-        NOT PAID
-      </h1>
-    </ion-card>
+   <h2 style="margin-left: 15px; font-size: 20px;">Summary</h2>
+   
+    <ion-item no-lines style=" border-top: 0.5px solid rgba(78, 78, 78, 0.5)">     
+      <h2><strong>Your Reservation ID  :  #{{ reservationID}}</strong></h2>
+   </ion-item>
+   <ion-item style="margin-top: 20px;" no-lines text-wrap>
+      <h2><em>Kindly check "My Reservations" page for more information.</em></h2>
+   </ion-item>
+   <ion-item style="margin-top: 20px;" no-lines text-wrap>
+      <h2><strong style="color: red">IMPORTANT </strong>: Please pay before the date of reservation or you will be penalized!</h2>
+   </ion-item>
+
+   
   </ion-content>
 
 <ion-footer no-shadow padding no-border>

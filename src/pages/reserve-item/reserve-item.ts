@@ -132,13 +132,17 @@ export class ReserveItemPage implements OnDestroy{
     if(event === 'badminton'){
       this.isBadminton=true;
       this.isSquash=false;
+      this.squashRecentStatus= false;
     }else if(event ==='squash'){
       this.isBadminton=false;
       this.isSquash=true;
+      this.badmintonRecentStatus= false;
     }
     else{
       this.isBadminton=false;
       this.isSquash=false;
+      this.badmintonRecentStatus= false;
+      this.squashRecentStatus=false;
     }
   }
 

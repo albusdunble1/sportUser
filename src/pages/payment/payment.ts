@@ -11,7 +11,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PaymentPage {
 
+  reservationID: string;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.reservationID= this.navParams.get('reservationID');
   }
 
   onHome(){

@@ -19,11 +19,12 @@
   <div *ngIf="checked">
     <ion-card *ngFor="let reservation of reservationsArray.reverse()">
     <ion-card-content>
-      <h3><strong>Category: {{ reservation.category === 'badminton'? 'Badminton Court': 'Squash Court'}}</strong></h3>
-      <hr>
-      <p>Name: {{ reservation.item }}</p>
-      <p>Date and Time: {{ reservation.date }}, {{ reservation.time }} </p>
-      <p>Fees: RM {{ reservation.fee }}</p>
+        <h3><strong>Reservation ID: #{{ reservation.reservationID}}</strong></h3>
+        <hr>
+        <p>Category: {{ reservation.category === 'badminton'? 'Badminton Court': 'Squash Court'}}</p>
+        <p>Name: {{ reservation.item }}</p>
+        <p>Date and Time: {{ reservation.date }}, {{ reservation.time }} </p>
+        <p>Fees: RM {{ reservation.fee }}</p>
 
       <ion-badge *ngIf="reservation.approvedStatus">Approved</ion-badge>
     <ion-badge color="danger" *ngIf="!reservation.approvedStatus">Not Approved</ion-badge>
@@ -36,8 +37,9 @@
   <div *ngIf="!checked">
       <ion-card *ngFor="let reservation of paidArray.reverse()">
           <ion-card-content>
-            <h3><strong>Category: {{ reservation.category === 'badminton'? 'Badminton Court': 'Squash Court'}}</strong></h3>
+            <h3><strong>Reservation ID: #{{ reservation.reservationID}}</strong></h3>
             <hr>
+            <p>Category: {{ reservation.category === 'badminton'? 'Badminton Court': 'Squash Court'}}</p>
             <p>Name: {{ reservation.item }}</p>
             <p>Date and Time: {{ reservation.date }}, {{ reservation.time }} </p>
             <p>Fees: RM {{ reservation.fee }}</p>

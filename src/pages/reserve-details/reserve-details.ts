@@ -33,6 +33,7 @@ export class ReserveDetailsPage implements OnDestroy{
 
   userId: string;
   matricsNo:string;
+  randomID: number;
 
   reservationSub :Subscription;
 
@@ -90,8 +91,8 @@ export class ReserveDetailsPage implements OnDestroy{
     console.log(this.fee);
     this.reservationKey= this.navParams.get('reservationKey');
 
-
-    this.reservationFinal= new Reservation(this.dateTime.date, this.dateTime.time, this.courtType, this.courtName, this.fee,this.approvedStatus, false,this.matricsNo,this.reservationKey);
+    this.randomID= Math.floor(Math.random() * 10000000000);
+    this.reservationFinal= new Reservation(this.dateTime.date, this.dateTime.time, this.courtType, this.courtName, this.fee,this.approvedStatus, false,this.matricsNo,this.reservationKey, this.randomID);
     
     if(this.courtType==='badminton'){
       this.alternativeCourtType='Badminton Court';
@@ -109,7 +110,7 @@ export class ReserveDetailsPage implements OnDestroy{
   }
 
   onReserve(){
-    this.navCtrl.push(PaymentPage);
+    this.navCtrl.push(PaymentPage, {reservationID: this.randomID} );
     const reservationRefForPush$= this.afDB.list('reservation');
     reservationRefForPush$.push(this.reservationFinal);
 

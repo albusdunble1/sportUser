@@ -1,3 +1,4 @@
+import { PaymentPage } from './../pages/payment/payment';
 import { MyReservationsPage } from './../pages/my-reservations/my-reservations';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ReserveDatePage } from './../pages/reserve-date/reserve-date';
@@ -9,6 +10,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { SigninPage } from '../pages/signin/signin';
 import { CommonProvider } from '../providers/common/common';
+import { ReserveDetailsPage } from '../pages/reserve-details/reserve-details';
 
 
 
@@ -27,8 +29,11 @@ export class MyApp {
     this.afAuth.authState.subscribe(
       (user) => {
       if(user){
+        let matric= user.email.substring(0,7).toUpperCase();
         this.nav.setRoot(HomePage);
+        this.common.toastPop('Welcome, '+matric, 'bottom').present();
         this.common.setUser(user.uid,user.email);
+        
       }else{
         this.nav.setRoot(SigninPage);
       }
@@ -43,8 +48,6 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Reserve Item', component: ReserveDatePage },
       { title: 'My Reservations', component: MyReservationsPage }
-      
-
     ];
 
   }
@@ -67,5 +70,6 @@ export class MyApp {
   onLogout(){
     this.afAuth.auth.signOut();
     this.nav.setRoot(SigninPage);
+    this.common.toastPop('Successfully logged out.', 'bottom').present();
   }
 }

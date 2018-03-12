@@ -10,21 +10,19 @@
 
 <ion-content class="backgroundContent">
 
-  <ion-card>
-    <ion-card-content>
-      <ion-card-title> Reservation Details</ion-card-title>
-      <hr>
-      <h2>Category:   {{ alternativeCourtType }}</h2>
-      <br>
-      <h2>Item Name: {{ courtName }}</h2>
-      <img src="assets/imgs/court.jpg" alt="court" class="img" *ngIf="badmintonChosen">
-      <img src="assets/imgs/squash1.png" alt="court" class="imgSquash" *ngIf="squashChosen">
-      <br>
-      <h2>Date: {{ dateTime.date }}</h2>
-      <h2>Time: {{ dateTime.time }}</h2>
-      <h2>Fees: RM {{ fee }}</h2>
-    </ion-card-content>
-  </ion-card>
+
+      
+    <img src="assets/imgs/court.jpg" alt="court" class="img" *ngIf="badmintonChosen">
+    <img src="assets/imgs/squash1.png" alt="court" class="imgSquash" *ngIf="squashChosen">
+      <h2 style="margin-left: 15px; font-size: 20px;">Reservation Details</h2>
+      
+      
+      <ion-item no-lines style=" border-top: 0.5px solid rgba(78, 78, 78, 0.3)"><strong>Fees: </strong>RM {{ fee }}</ion-item>
+      <ion-item no-lines><strong>Time: </strong>{{ dateTime.time }}</ion-item>
+      <ion-item no-lines><strong>Date: </strong>{{ dateTime.date }}</ion-item>
+      <ion-item no-lines ><strong>Category: </strong>{{ alternativeCourtType }}</ion-item>
+      <ion-item no-lines><strong>Item Name: </strong>{{ courtName }}</ion-item>
+
 </ion-content>
 
 <ion-footer no-shadow padding no-border>
