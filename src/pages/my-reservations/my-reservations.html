@@ -21,7 +21,7 @@
     <ion-card-content>
         <h3><strong>Reservation ID: #{{ reservation.reservationID}}</strong></h3>
         <hr>
-        <p>Category: {{ reservation.category === 'badminton'? 'Badminton Court': 'Squash Court'}}</p>
+        <p>Category: {{ reservation.category | titlecase }}</p>
         <p>Name: {{ reservation.item }}</p>
         <p>Date and Time: {{ reservation.date }}, {{ reservation.time }} </p>
         <p>Fees: RM {{ reservation.fee }}</p>
@@ -39,7 +39,7 @@
           <ion-card-content>
             <h3><strong>Reservation ID: #{{ reservation.reservationID}}</strong></h3>
             <hr>
-            <p>Category: {{ reservation.category === 'badminton'? 'Badminton Court': 'Squash Court'}}</p>
+            <p>Category: {{ reservation.category | titlecase }}</p>
             <p>Name: {{ reservation.item }}</p>
             <p>Date and Time: {{ reservation.date }}, {{ reservation.time }} </p>
             <p>Fees: RM {{ reservation.fee }}</p>

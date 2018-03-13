@@ -24,9 +24,17 @@ export class ReserveDetailsPage implements OnDestroy{
   reservationFinal: Reservation;
   fee:number;
   approvedStatus= false;
+
+
   alternativeCourtType : string;
+
   badmintonChosen= false;
   squashChosen = false;
+  takrawChosen = false;
+  basketballChosen = false;
+  footballChosen = false;
+
+
   userRef$;
   userObservable;
   reservationKey: string;
@@ -99,12 +107,60 @@ export class ReserveDetailsPage implements OnDestroy{
       this.badmintonChosen= true;
       if(this.squashChosen === true){
         this.squashChosen= false;
+      }else if(this.takrawChosen === true){
+        this.takrawChosen= false;
+      }else if(this.basketballChosen === true){
+        this.basketballChosen= false;
+      }else if(this.footballChosen === true){
+        this.footballChosen= false;
       }
-    }else{
+    }else if(this.courtType === 'squash'){
       this.alternativeCourtType='Squash Court';
       this.squashChosen= true;
       if(this.badmintonChosen === true){
         this.badmintonChosen= false;
+      }else if(this.takrawChosen === true){
+        this.takrawChosen= false;
+      }else if(this.basketballChosen === true){
+        this.basketballChosen= false;
+      }else if(this.footballChosen === true){
+        this.footballChosen= false;
+      }
+    }else if(this.courtType === 'takraw'){
+      this.alternativeCourtType='Sepak Takraw Court';
+      this.takrawChosen= true;
+      if(this.badmintonChosen === true){
+        this.badmintonChosen= false;
+      }else if(this.squashChosen === true){
+        this.squashChosen= false;
+      }else if(this.basketballChosen === true){
+        this.basketballChosen= false;
+      }else if(this.footballChosen === true){
+        this.footballChosen= false;
+      }
+    }else if(this.courtType === 'basketball'){
+      this.alternativeCourtType='Basketball Court';
+      this.basketballChosen= true;
+      if(this.badmintonChosen === true){
+        this.badmintonChosen= false;
+      }else if(this.takrawChosen === true){
+        this.takrawChosen= false;
+      }else if(this.squashChosen === true){
+        this.squashChosen= false;
+      }else if(this.footballChosen === true){
+        this.footballChosen= false;
+      }
+    }else if(this.courtType === 'football'){
+      this.alternativeCourtType='Football Field';
+      this.footballChosen= true;
+      if(this.badmintonChosen === true){
+        this.badmintonChosen= false;
+      }else if(this.takrawChosen === true){
+        this.takrawChosen= false;
+      }else if(this.basketballChosen === true){
+        this.basketballChosen= false;
+      }else if(this.squashChosen === true){
+        this.squashChosen= false;
       }
     }
   }

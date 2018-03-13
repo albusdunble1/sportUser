@@ -15,10 +15,13 @@
               <ion-option value="" selected>Please select</ion-option>            
             <ion-option value="badminton">Badminton Court</ion-option>
             <ion-option value="squash">Squash Court</ion-option>
+            <ion-option value="takraw">Sepak Takraw Court</ion-option>
+            <ion-option value="basketball">Basketball Court</ion-option>
+            <ion-option value="football">Football Field</ion-option>
           </ion-select>
         </ion-item>
 
-  <ion-card *ngIf="isBadminton || isSquash">
+  <ion-card *ngIf="isBadminton || isSquash || isTakraw || isBasketball || isFootball">
     <ion-card-content>
    
       <ion-grid *ngIf="isBadminton">
@@ -36,6 +39,28 @@
           </ion-row>
       </ion-grid>
 
+      <ion-grid text-center *ngIf="isTakraw">
+          <br>
+          <h2 text-center class="mainStage">Main Stage</h2>
+        <ion-row>
+          <ion-col col-6 *ngFor="let takraw of takraw2Sync"><img  id="takraw" src="assets/imgs/takraw.png" alt="court" class="takraw" (click)="onSelectCourt(takraw.name,takraw.isBooked)" [ngClass]="{'lowOpacity' : takraw.isBooked,'selectedCourt' : takrawRecentStatus && courtName === takraw.name}"></ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid text-center *ngIf="isBasketball">
+      <ion-row *ngFor="let basketball of basketball2Sync">
+        <ion-col col-12><img  id="basketball" src="assets/imgs/basketball.png" alt="court" class="basketball" (click)="onSelectCourt(basketball.name,basketball.isBooked)" [ngClass]="{'lowOpacity' : basketball.isBooked,'selectedCourt' : basketballRecentStatus && courtName === basketball.name}"></ion-col>
+      </ion-row>
+  </ion-grid>
+
+  <ion-grid text-center *ngIf="isFootball">
+    <ion-row *ngFor="let football of football2Sync">
+      <ion-col col-12><img  id="football" src="assets/imgs/football.jpg" alt="court" class="football" (click)="onSelectCourt(football.name,football.isBooked)" [ngClass]="{'lowOpacity' : football.isBooked,'selectedCourt' : footballRecentStatus && courtName === football.name}"></ion-col>
+    </ion-row>
+</ion-grid>
+
+      
+
     </ion-card-content>
   </ion-card>
 
@@ -45,6 +70,6 @@
 
 
 <ion-footer no-shadow padding no-border>
-      <button ion-button block color="primary" (click)="onSelect()" [disabled]="squashRecentStatus === false && badmintonRecentStatus === false">Proceed</button>
+      <button ion-button block color="primary" (click)="onSelect()" [disabled]="squashRecentStatus === false && badmintonRecentStatus === false&& takrawRecentStatus === false&& basketballRecentStatus === false&& footballRecentStatus === false">Proceed</button>
 
   </ion-footer>
