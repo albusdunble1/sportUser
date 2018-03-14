@@ -28,8 +28,13 @@ export class HomePage implements OnDestroy{
   userId;
   user;
   matricsNo;
+ 
+
+  userObject;
+  
 
   announSub: Subscription;
+  userSub: Subscription;
 
   ionViewDidLoad(){
     this.loading=this.common.loadingSpinner('Loading');
@@ -58,6 +63,16 @@ export class HomePage implements OnDestroy{
     matricsNo: this.matricsNo
   }
   this.afDB.object('/users/'+ this.userId).update(content);
+
+  this.userSub=this.afDB.object('/users/'+ this.userId).valueChanges()
+  .subscribe(
+    (userName) => {
+      this.userObject= userName;
+      console.log(this.userObject.name);
+
+      
+    }
+  )
 
     // normal single query
     // this.items1 = afDB.list('announcements', (ref) => ref.orderByChild('description')).snapshotChanges()
@@ -233,6 +248,7 @@ export class HomePage implements OnDestroy{
 
   ngOnDestroy(){
     this.announSub.unsubscribe();
+    this.userSub.unsubscribe();
   }
 }
 

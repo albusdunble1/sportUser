@@ -42,6 +42,7 @@ export class ReserveDetailsPage implements OnDestroy{
   userId: string;
   matricsNo:string;
   randomID: number;
+  userName: string;
 
   reservationSub :Subscription;
 
@@ -87,6 +88,8 @@ export class ReserveDetailsPage implements OnDestroy{
       }
     )
 
+    this.userName= this.navParams.get('userName');
+    console.log(this.userName);
     this.courtType= this.navParams.get('courtType');
     this.courtName= this.navParams.get('courtName');
     console.log(this.courtName,"  in details page");
@@ -100,7 +103,7 @@ export class ReserveDetailsPage implements OnDestroy{
     this.reservationKey= this.navParams.get('reservationKey');
 
     this.randomID= Math.floor(Math.random() * 10000000000);
-    this.reservationFinal= new Reservation(this.dateTime.date, this.dateTime.time, this.courtType, this.courtName, this.fee,this.approvedStatus, false,this.matricsNo,this.reservationKey, this.randomID);
+    this.reservationFinal= new Reservation(this.dateTime.date, this.dateTime.time, this.courtType, this.courtName, this.fee,this.approvedStatus, false,this.matricsNo,this.reservationKey, this.randomID, this.userName);
     
     if(this.courtType==='badminton'){
       this.alternativeCourtType='Badminton Court';

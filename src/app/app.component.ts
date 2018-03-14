@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs/Subscription';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { PaymentPage } from './../pages/payment/payment';
 import { MyReservationsPage } from './../pages/my-reservations/my-reservations';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -19,19 +21,30 @@ import { ReserveDetailsPage } from '../pages/reserve-details/reserve-details';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
+  userObject;
+
+  userSub: Subscription;
 
   
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,private common: CommonProvider ,private afAuth: AngularFireAuth) {
+  constructor(private afDB: AngularFireDatabase,public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,private common: CommonProvider ,private afAuth: AngularFireAuth) {
     this.initializeApp();
     this.afAuth.authState.subscribe(
       (user) => {
       if(user){
         let matric= user.email.substring(0,7).toUpperCase();
+        this.userSub=this.afDB.object('/users/'+ user.uid).valueChanges()
+        .subscribe(
+          (userName) => {
+            this.userObject= userName;
+            this.common.toastPop('Welcome, '+this.userObject.name, 'bottom').present();
+            
+          }
+        )
         this.nav.setRoot(HomePage);
-        this.common.toastPop('Welcome, '+matric, 'bottom').present();
+        
         this.common.setUser(user.uid,user.email);
         
       }else{
@@ -71,5 +84,6 @@ export class MyApp {
     this.afAuth.auth.signOut();
     this.nav.setRoot(SigninPage);
     this.common.toastPop('Successfully logged out.', 'bottom').present();
+    this.userSub.unsubscribe();
   }
 }

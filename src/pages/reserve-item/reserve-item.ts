@@ -8,6 +8,7 @@ import { ReserveDetailsPage } from '../reserve-details/reserve-details';
 import { Subject } from 'rxjs/Subject';
 import { DateTime } from '../../app/models/datetime.interface';
 import { Subscription } from 'rxjs/Subscription';
+import { CommonProvider } from '../../providers/common/common';
 
 
 @IonicPage()
@@ -72,12 +73,27 @@ export class ReserveItemPage implements OnDestroy{
   takrawSub: Subscription;
   basketballSub: Subscription;
   footballSub: Subscription;
+
+  userSub: Subscription;
+  userObject;
+  userId;
   
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private afDB: AngularFireDatabase) {
+  constructor(private common: CommonProvider,public navCtrl: NavController, public navParams: NavParams, private afDB: AngularFireDatabase) {
     this.dateTime= this.navParams.get('dateTime');
     console.log(this.dateTime);
 
+    this.userId= this.common.getUser();
+
+    this.userSub=this.afDB.object('/users/'+ this.userId).valueChanges()
+  .subscribe(
+    (userName) => {
+      this.userObject= userName;
+      console.log(this.userObject.name); // get user's name
+
+      
+    }
+  )
 
 
     //retreving the reservation with the submitted date and time
@@ -190,7 +206,7 @@ export class ReserveItemPage implements OnDestroy{
     }
     // const reservationRef= this.afDB.list('reservation');
     // reservationRef.push(this.reservationFinal);
-    this.navCtrl.push(ReserveDetailsPage,{courtType: this.courtType, courtName: this.courtName, dateTime: this.dateTime, fee: this.fee, approvedStatus: false, reservationKey: this.categoryKey});
+    this.navCtrl.push(ReserveDetailsPage,{courtType: this.courtType, courtName: this.courtName, dateTime: this.dateTime, fee: this.fee, approvedStatus: false, reservationKey: this.categoryKey, userName: this.userObject.name});
 
   }
 
@@ -358,5 +374,6 @@ export class ReserveItemPage implements OnDestroy{
     this.takrawSub.unsubscribe();
     this.basketballSub.unsubscribe();
     this.footballSub.unsubscribe();
+    this.userSub.unsubscribe();
   }
 }

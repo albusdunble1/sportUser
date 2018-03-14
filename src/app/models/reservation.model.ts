@@ -8,5 +8,6 @@ export class Reservation {
                 public paidStatus: boolean,
                 public matricsNo: string,
                 public reservationKey: string,
-                public reservationID: number){}
+                public reservationID: number,
+                public userName: string){}
 }

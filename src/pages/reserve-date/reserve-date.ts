@@ -247,6 +247,11 @@ export class ReserveDatePage implements OnInit, OnDestroy{
   }
 
   ionViewDidLeave(){
+
+    if(this.reservationTimeSub){
+      this.reservationTimeSub.unsubscribe();
+      this.querySubscription.unsubscribe();
+    }
     this.categorySub.unsubscribe();
     this.reservationSub.unsubscribe();
     
