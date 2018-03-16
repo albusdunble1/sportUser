@@ -31,6 +31,7 @@ export class MyApp {
 
   constructor(private afDB: AngularFireDatabase,public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,private common: CommonProvider ,private afAuth: AngularFireAuth) {
     this.initializeApp();
+    
     this.afAuth.authState.subscribe(
       (user) => {
       if(user){

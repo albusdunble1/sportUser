@@ -17,6 +17,10 @@ export class MyReservationsPage implements OnDestroy{
   matricsNo: string;
   checked= false;
   paidArray=[];
+  searchedId:string;
+  filteredArray1=[];
+  filteredArray2=[];
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afDB: AngularFireDatabase, private common: CommonProvider) {
       
@@ -36,10 +40,30 @@ export class MyReservationsPage implements OnDestroy{
       (reservationStuff) => {
         this.reservationsArray= reservationStuff;
         this.paidArray= this.reservationsArray.filter(x => x.paidStatus === false);
+        this.filteredArray1= this.reservationsArray;
+        this.filteredArray2= this.paidArray;
       }
     )
 
     
+
+  }
+
+  onInput(event){
+    if(this.searchedId !== ''){
+      // this.filteredArray= this.allReservation.filter(x=> x.reservationID.toString().startsWith(this.searchedId) !== -1);
+      this.filteredArray1= this.reservationsArray.filter(x=> 
+        x.reservationID.toString().substring(0,this.searchedId.length)=== this.searchedId);
+        this.filteredArray2= this.paidArray.filter(x=> 
+          x.reservationID.toString().substring(0,this.searchedId.length)=== this.searchedId);
+    }else{
+      this.filteredArray1= this.reservationsArray;
+      this.filteredArray2= this.paidArray;
+    }
+  
+  }
+
+  onCancel(event){
 
   }
   
