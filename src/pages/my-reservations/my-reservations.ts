@@ -16,10 +16,17 @@ export class MyReservationsPage implements OnDestroy{
   reservationsArray=[];
   matricsNo: string;
   checked= false;
+  checked2= false;
   paidArray=[];
   searchedId:string;
+  rejectandpaidArray=[];
   filteredArray1=[];
   filteredArray2=[];
+  rejectedArray=[];
+  realpaidArray=[];
+  filteredArray3=[];
+  filteredArray4=[];
+  filteredArray5=[];
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afDB: AngularFireDatabase, private common: CommonProvider) {
@@ -39,9 +46,15 @@ export class MyReservationsPage implements OnDestroy{
     ).subscribe(
       (reservationStuff) => {
         this.reservationsArray= reservationStuff;
-        this.paidArray= this.reservationsArray.filter(x => x.paidStatus === false);
+        this.paidArray= this.reservationsArray.filter(x => x.paidStatus === false && x.rejectedStatus === undefined);
+        this.realpaidArray= this.reservationsArray.filter(x => x.paidStatus === true);
+        this.rejectedArray= this.reservationsArray.filter(x => x.rejectedStatus === true);
+        this.rejectandpaidArray= this.reservationsArray.filter(x => x.paidStatus=== true || x.rejectedStatus === true);
         this.filteredArray1= this.reservationsArray;
         this.filteredArray2= this.paidArray;
+        this.filteredArray3= this.realpaidArray;
+        this.filteredArray4= this.rejectedArray;
+        this.filteredArray5= this.rejectandpaidArray;
       }
     )
 
@@ -56,9 +69,18 @@ export class MyReservationsPage implements OnDestroy{
         x.reservationID.toString().substring(0,this.searchedId.length)=== this.searchedId);
         this.filteredArray2= this.paidArray.filter(x=> 
           x.reservationID.toString().substring(0,this.searchedId.length)=== this.searchedId);
+          this.filteredArray3= this.realpaidArray.filter(x=> 
+            x.reservationID.toString().substring(0,this.searchedId.length)=== this.searchedId);
+            this.filteredArray4= this.rejectedArray.filter(x=> 
+              x.reservationID.toString().substring(0,this.searchedId.length)=== this.searchedId);
+              this.filteredArray5= this.rejectandpaidArray.filter(x=> 
+                x.reservationID.toString().substring(0,this.searchedId.length)=== this.searchedId);
     }else{
       this.filteredArray1= this.reservationsArray;
       this.filteredArray2= this.paidArray;
+      this.filteredArray3= this.realpaidArray;
+      this.filteredArray4= this.rejectedArray;
+      this.filteredArray5= this.rejectandpaidArray;
     }
   
   }

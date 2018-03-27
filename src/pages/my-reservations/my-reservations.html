@@ -19,13 +19,26 @@
     placeholder="Filter by ID"
     >
   </ion-searchbar>
+
+  <div float-left class="my-checkbox">
     <ion-item no-padding no-lines>
         <ion-label>Show Paid</ion-label>
         <ion-checkbox color="primary" [(ngModel)]="checked"></ion-checkbox>
       </ion-item>
+  </div>
+  <div float-right class="my-checkbox">
+    <ion-item no-padding no-lines>
+        <ion-label>Show Rejected</ion-label>
+        <ion-checkbox color="primary" [(ngModel)]="checked2"></ion-checkbox>
+      </ion-item>
+  </div>
+    
+      
+      
 
-  <div *ngIf="checked">
-    <ion-card *ngFor="let reservation of filteredArray1.reverse()">
+  <!-- paid only -->
+  <div *ngIf="checked && !checked2">
+    <ion-card *ngFor="let reservation of filteredArray3.reverse()">
     <ion-card-content>
         <h3><strong>Reservation ID: #{{ reservation.reservationID}}</strong></h3>
         <hr>
@@ -44,7 +57,8 @@
   </ion-card>
   </div>
 
-  <div *ngIf="!checked">
+  <!-- clean request -->
+  <div *ngIf="!checked && !checked2">
       <ion-card *ngFor="let reservation of filteredArray2.reverse()">
           <ion-card-content>
             <h3><strong>Reservation ID: #{{ reservation.reservationID}}</strong></h3>
@@ -55,13 +69,71 @@
             <p>Fees: RM {{ reservation.fee }}</p>
             <p *ngIf="reservation.approvedBy"><strong>Approved by: {{ reservation.approvedBy }}</strong></p>
             <p *ngIf="reservation.payreceivedBy"><strong>Payment received: {{ reservation.payreceivedBy }}</strong></p>
+            <p *ngIf="reservation.rejectedBy"><strong>Rejected By: {{ reservation.rejectedBy }}</strong></p>
       
-            <ion-badge *ngIf="reservation.approvedStatus">Approved</ion-badge>
-          <ion-badge color="danger" *ngIf="!reservation.approvedStatus">Not Approved</ion-badge>
-          <ion-badge *ngIf="reservation.paidStatus" >Paid</ion-badge>
-          <ion-badge *ngIf="!reservation.paidStatus" color="danger">Not Paid</ion-badge>
+            <p *ngIf="reservation.rejectedReason"><strong>Reason: {{ reservation.rejectedReason }}</strong></p>
+            
+            <ion-badge *ngIf="reservation.approvedStatus" block>Approved</ion-badge>
+            <ion-badge color="danger" *ngIf="!reservation.approvedStatus && !reservation.rejectedStatus" block>Not Approved</ion-badge>
+      
+              <ion-badge *ngIf="reservation.paidStatus" block>Paid</ion-badge>
+              <ion-badge *ngIf="!reservation.paidStatus && !reservation.rejectedStatus" color="danger" block>Not Paid</ion-badge>        
+              <ion-badge color="danger" *ngIf="reservation.rejectedStatus" block>Rejected</ion-badge>
           </ion-card-content>
         </ion-card>
   </div>
+
+
+  <!-- rejected only -->
+  <div *ngIf="checked2 && !checked">
+    <ion-card *ngFor="let reservation of filteredArray4.reverse()">
+        <ion-card-content>
+          <h3><strong>Reservation ID: #{{ reservation.reservationID}}</strong></h3>
+          <hr>
+          <p>Category: {{ reservation.category | titlecase }}</p>
+          <p>Name: {{ reservation.item }}</p>
+          <p>Date and Time: {{ reservation.date }}, {{ reservation.time }} </p>
+          <p>Fees: RM {{ reservation.fee }}</p>
+          <p *ngIf="reservation.approvedBy"><strong>Approved by: {{ reservation.approvedBy }}</strong></p>
+          <p *ngIf="reservation.payreceivedBy"><strong>Payment received: {{ reservation.payreceivedBy }}</strong></p>
+          <p *ngIf="reservation.rejectedBy"><strong>Rejected By: {{ reservation.rejectedBy }}</strong></p>
+    
+          <p *ngIf="reservation.rejectedReason"><strong>Reason: {{ reservation.rejectedReason }}</strong></p>
+          
+          <ion-badge *ngIf="reservation.approvedStatus" block>Approved</ion-badge>
+          <ion-badge color="danger" *ngIf="!reservation.approvedStatus && !reservation.rejectedStatus" block>Not Approved</ion-badge>
+    
+            <ion-badge *ngIf="reservation.paidStatus" block>Paid</ion-badge>
+            <ion-badge *ngIf="!reservation.paidStatus && !reservation.rejectedStatus" color="danger" block>Not Paid</ion-badge>        
+            <ion-badge color="danger" *ngIf="reservation.rejectedStatus" block>Rejected</ion-badge>
+        </ion-card-content>
+      </ion-card>
+</div>
+
+<!-- rejected and paid only -->
+<div *ngIf="checked2 && checked">
+  <ion-card *ngFor="let reservation of filteredArray5.reverse()">
+      <ion-card-content>
+        <h3><strong>Reservation ID: #{{ reservation.reservationID}}</strong></h3>
+        <hr>
+        <p>Category: {{ reservation.category | titlecase }}</p>
+        <p>Name: {{ reservation.item }}</p>
+        <p>Date and Time: {{ reservation.date }}, {{ reservation.time }} </p>
+        <p>Fees: RM {{ reservation.fee }}</p>
+        <p *ngIf="reservation.approvedBy"><strong>Approved by: {{ reservation.approvedBy }}</strong></p>
+        <p *ngIf="reservation.payreceivedBy"><strong>Payment received: {{ reservation.payreceivedBy }}</strong></p>
+        <p *ngIf="reservation.rejectedBy"><strong>Rejected By: {{ reservation.rejectedBy }}</strong></p>
+  
+        <p *ngIf="reservation.rejectedReason"><strong>Reason: {{ reservation.rejectedReason }}</strong></p>
+        
+        <ion-badge *ngIf="reservation.approvedStatus" block>Approved</ion-badge>
+        <ion-badge color="danger" *ngIf="!reservation.approvedStatus && !reservation.rejectedStatus" block>Not Approved</ion-badge>
+  
+          <ion-badge *ngIf="reservation.paidStatus" block>Paid</ion-badge>
+          <ion-badge *ngIf="!reservation.paidStatus && !reservation.rejectedStatus" color="danger" block>Not Paid</ion-badge>        
+          <ion-badge color="danger" *ngIf="reservation.rejectedStatus" block>Rejected</ion-badge>
+      </ion-card-content>
+    </ion-card>
+</div>
   
 </ion-content>
